@@ -1,9 +1,14 @@
 ProjectTracker::Application.routes.draw do
+  get "users/new"
+  get "users/create"
+  get "users/show"
   root "projects#index"
 
   resources :projects do
     resources :tickets
   end
+
+  resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
