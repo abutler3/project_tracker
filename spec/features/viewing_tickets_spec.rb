@@ -2,11 +2,11 @@ require 'spec_helper'
 
 feature 'Viewing Tickets' do
   before do
-    lawyerly_2 = FactoryGirl.create(:project, name: "Lawyer.ly 2")
-    FactoryGirl.create(:ticket,
-            project: lawyerly_2,
-            title: "Make it shiny!",
-            description: "Gradients! Starburts! Oh my!")
+    lawyerly_2 = FactoryGirl.create(:project, name: "Lawyerly 2")
+    user = FactoryGirl.create(:user)
+
+    ticket = FactoryGirl.create(:ticket, project: lawyerly_2, title: "Make it shiny!", description: "Gradients! Starburts! Oh my!")
+    ticket.update(user: user)
 
     internet_explorer = FactoryGirl.create(:project, name: "Internet Explorer")
     FactoryGirl.create(:ticket,
@@ -18,7 +18,7 @@ feature 'Viewing Tickets' do
   end
 
   scenario "Visiting tickets for a given project" do
-    click_link "Lawyer.ly 2"
+    click_link "Lawyerly 2"
 
     expect(page).to have_content("Make it shiny!")
     expect(page).to_not have_content("Standards compliance")
