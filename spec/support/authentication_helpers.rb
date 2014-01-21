@@ -8,7 +8,18 @@ module AuthenticationHelpers
   end
 end
 
-Rspec.configure do |c|
+RSpec.configure do |c|
   c.include AuthenticationHelpers, type: :feature
 end
 # Includes the module AuthenticationHelpers into all specs in the spec/features directory
+
+module AuthHelpers
+  def sign_in(user)
+    session[:user_id] = user.id
+  end
+end
+
+RSpec.configure do |c|
+  c.include AuthHelpers, type: :controller
+end
+
