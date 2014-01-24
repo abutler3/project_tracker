@@ -12,6 +12,12 @@ ProjectTracker::Application.routes.draw do
 
   get "/signin", to: "sessions#new"
   post "/signin", to: "sessions#create"
+
+  namespace :admin do
+    resources :users
+  end
+  # Creates admin/users route
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
