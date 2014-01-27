@@ -18,6 +18,9 @@
     <%= f.label :password %><br>
     <%= f.password_field :password %>
   </p>
-
+  <p>
+    <%= f.check_box :admin %><br>
+    <%= f.label :admin, "Is an admin?" %>
+  </p>
   <%= f.submit %>
 <% end %>
