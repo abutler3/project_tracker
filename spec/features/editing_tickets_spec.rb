@@ -10,6 +10,9 @@ feature 'Editing Tickets' do
   end
 
   before do
+    define_permission!(user, "view", project)
+    # Defining user to view the project
+
     sign_in_as!(user)
 
     visit '/'

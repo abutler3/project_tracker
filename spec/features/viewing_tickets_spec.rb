@@ -6,14 +6,17 @@ feature 'Viewing Tickets' do
     user = FactoryGirl.create(:user)
 
     ticket = FactoryGirl.create(:ticket, project: lawyerly_2, title: "Make it shiny!", description: "Gradients! Starburts! Oh my!")
+    define_permission!(user, "view", lawyerly_2)
     ticket.update(user: user)
 
     internet_explorer = FactoryGirl.create(:project, name: "Internet Explorer")
+    define_permission!(user, "view", internet_explorer)
     FactoryGirl.create(:ticket,
             project: internet_explorer,
             title: "Standards compliance",
             description: "Isn't a joke")
 
+    sign_in_as!(user)
     visit '/'
   end
 
