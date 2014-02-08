@@ -54,6 +54,12 @@ describe TicketsController do
         cannot_update_tickets!
       end
 
+      it "cannot delete a ticket without permission" do
+        delete :destroy, { project_id: project.id, id: ticket.id }
+        # the empty hash is so the params[:ticket] is set
+        expect(response).to redirect_to(project)
+        expect(flash[:alert]).to eql("You cannot delete tickets from this project.")
+      end
     end
   end
 end
