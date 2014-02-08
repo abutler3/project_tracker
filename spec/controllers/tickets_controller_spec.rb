@@ -25,6 +25,11 @@ describe TicketsController do
         flash[:alert].should eql(message)
       end
 
+      def cannot_update_tickets!
+        expect(response).to redirect_to(project)
+        expect(flash[:alert]).to eql("You cannot edit tickets on this project.")
+      end
+
       it "cannot begin to create a ticket" do
         get :new, project_id: project.id
         cannot_create_tickets!
@@ -34,6 +39,21 @@ describe TicketsController do
         post :create, project_id: project.id
         cannot_create_tickets!
       end
+
+      it "cannot edit a ticket without permission" do
+        get :edit, { project_id: project.id, id: ticket.id }
+        # I need to pass a project_id parameter so the set_project
+        # method can find a project and an id parameter so the
+        # set_ticket method can find a ticket
+        cannot_update_tickets!
+      end
+
+      it "cannot update a ticket without permission" do
+        put :update, { project_id: project.id, id: ticket.id, ticket: {} }
+        # the empty hash is so the params[:ticket] is set
+        cannot_update_tickets!
+      end
+
     end
   end
 end
